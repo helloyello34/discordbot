@@ -14,11 +14,15 @@ class StoreInfo:
 
 def read_store_info():
     resp = requests.get('http://www.cheapshark.com/api/1.0/stores')
-    store_info = []
+    store_info = {}
     for data in resp.json():
-        if data['isActive']:
-            store_info.append(StoreInfo(data['storeID'],
-                                        data['storeName'],
-                                        data['isActive'],
-                                        data['images']))
+        store_info[data['storeID']] = data
+        # if data['isActive']:
+        #     store_info.append(StoreInfo(data['storeID'],
+        #                                 data['storeName'],
+        #                                 data['isActive'],
+        #                                 data['images']))
     return store_info
+
+if __name__ == '__main__':
+    print(read_store_info())
